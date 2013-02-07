@@ -21,6 +21,18 @@ public class CourseTime {
 		this.end = new LocalTime(endHour, endMinute);
 	}
 	
+	public LocalTime getBegin(){
+		return this.begin;
+	}
+	
+	public LocalTime getEnd(){
+		return this.end;
+	}
+	
+	public DayOfWeek getDay(){
+		return this.day;
+	}
+	
 	@Override
 	public String toString() {
 		return day.getName() + " " + begin.toString("HH:mm") + "-" + end.toString("HH:mm");
