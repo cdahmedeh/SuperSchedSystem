@@ -9,7 +9,7 @@ import constraint.MustHaveCourse;
 
 public class Student {
 	private ArrayList<Constraint> constraints = new ArrayList<>();
-	private Schedule schedule;
+	private Schedule schedule = new Schedule();
 	
 	
 	public void addConstraint(Constraint constraint){
