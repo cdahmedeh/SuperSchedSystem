@@ -11,6 +11,10 @@ public class MustHaveCourse implements Constraint {
 		this.mustHaveCourseName = courseName;
 	}
 	
+	public String getCourseName() {
+		return mustHaveCourseName;
+	}
+
 	@Override
 	public boolean verify(Schedule schedule) {
 		return getScore(schedule) == 0;

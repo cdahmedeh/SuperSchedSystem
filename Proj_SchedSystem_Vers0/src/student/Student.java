@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import schedule.Schedule;
 
 import constraint.Constraint;
+import constraint.MustHaveCourse;
 
 public class Student {
 	private ArrayList<Constraint> constraints = new ArrayList<>();
@@ -36,6 +37,18 @@ public class Student {
 		}
 		
 		return sb.toString();
+	}
+	
+	public ArrayList<String> getWantedCourses(){
+		ArrayList<String> listOfCourses = new ArrayList<>();
+		
+		for (Constraint constraint: constraints){
+			if (constraint instanceof MustHaveCourse){
+				listOfCourses.add(((MustHaveCourse)constraint).getCourseName());
+			}
+		}
+		
+		return listOfCourses;
 	}
 	
 	public void setSchedule(Schedule schedule) {
