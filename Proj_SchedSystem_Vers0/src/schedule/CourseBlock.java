@@ -4,11 +4,13 @@ public class CourseBlock {
 	private String name = "ZZZ0000";
 	private String type = "LEC1";
 	private String section = "A";
+	private CourseTime times;
 	
-	public CourseBlock(String name, String type, String section) {
+	public CourseBlock(String name, String type, String section, CourseTime times) {
 		this.name = name;
 		this.type = type;
 		this.section = section;
+		this.times = times;
 	}
 
 	@Override
@@ -19,5 +21,9 @@ public class CourseBlock {
 	@Override
 	public String toString() {
 		return name + ' ' + type + ' ' + section;
+	}
+
+	public CourseTime getCourseTime() {
+		return this.times;
 	}
 }
