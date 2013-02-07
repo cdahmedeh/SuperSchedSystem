@@ -54,4 +54,8 @@ public class Student {
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}
+	
+	public Schedule getSchedule() {
+		return this.schedule;
+	}
 }
