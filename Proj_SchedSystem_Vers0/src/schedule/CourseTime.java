@@ -21,6 +21,14 @@ public class CourseTime {
 		this.end = new LocalTime(endHour, endMinute);
 	}
 	
+	public LocalTime getCourseBegins(){
+		return this.begin;
+	}
+	
+	public LocalTime getCourseEnds(){
+		return this.end;
+	}
+	
 	@Override
 	public String toString() {
 		return day.getName() + " " + begin.toString("HH:mm") + "-" + end.toString("HH:mm");
