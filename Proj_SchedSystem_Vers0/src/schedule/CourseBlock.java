@@ -26,4 +26,12 @@ public class CourseBlock {
 	public CourseTime getCourseTime() {
 		return this.times;
 	}
+
+	public void setCourseTime(CourseTime times) {
+		this.times = times;
+	}
+	
+	public String getCourseName() {
+		return this.name;
+	}
 }

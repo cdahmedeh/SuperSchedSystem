@@ -23,6 +23,10 @@ public class Schedule {
 		return sb.toString();
 	}
 
+	public ArrayList<CourseBlock> getAllCourseBlocks() {
+		return this.schedule;
+	}
+	
 	public ArrayList<Conflict> findConflicts() {
 		ArrayList<Conflict> conflicts = new ArrayList<>();
 		LocalTime iStart;
