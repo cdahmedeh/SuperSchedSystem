@@ -40,7 +40,6 @@ public class Schedule {
 			iStart = schedule.get(i).getCourseTime().getBegin();
 			iEnd = schedule.get(i).getCourseTime().getEnd();
 			iDay = schedule.get(i).getCourseTime().getDay();
-//			System.out.println("Checking day "+i);
 			for (int j = i+1; j<schedule.size();j++){
 				jStart = schedule.get(j).getCourseTime().getBegin();
 				jEnd = schedule.get(j).getCourseTime().getEnd();
