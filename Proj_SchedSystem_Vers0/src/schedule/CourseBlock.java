@@ -3,10 +3,12 @@ package schedule;
 public class CourseBlock {
 	private String name = "ZZZ0000";
 	private String type = "LEC1";
+	private String section = "A";
 	
-	public CourseBlock(String name, String type) {
+	public CourseBlock(String name, String type, String section) {
 		this.name = name;
 		this.type = type;
+		this.section = section;
 	}
 
 	@Override
@@ -16,6 +18,6 @@ public class CourseBlock {
 	
 	@Override
 	public String toString() {
-		return name + ' ' + type;
+		return name + ' ' + type + ' ' + section;
 	}
 }

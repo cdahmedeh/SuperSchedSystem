@@ -29,8 +29,8 @@ public class Schedule {
 		
 		conflicts.add(
 				new Conflict(
-						new CourseBlock("SEG0000", "LEC1"),
-						new CourseBlock("SEG0001", "FUN1"),
+						new CourseBlock("SEG0000", "LEC1", "A"),
+						new CourseBlock("SEG0001", "FUN1", "B"),
 						new CourseTime(DayOfWeek.MONDAY, 12, 30, 1, 30)
 				)
 		);
