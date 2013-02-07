@@ -26,4 +26,8 @@ public class CourseBlock {
 	public CourseTime getCourseTime() {
 		return this.times;
 	}
+	
+	public String getCourseName() {
+		return this.name;
+	}
 }
