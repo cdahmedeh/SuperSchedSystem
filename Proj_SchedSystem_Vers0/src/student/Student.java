@@ -25,6 +25,19 @@ public class Student {
 		return score;
 	}
 	
+	public String explainConstraints(){
+		StringBuilder sb = new StringBuilder();
+		
+		for (Constraint constraint: constraints){
+			sb.append(constraint.getClass().getName());
+			sb.append(" = ");
+			sb.append(constraint.getScore(schedule));
+			sb.append("\n");
+		}
+		
+		return sb.toString();
+	}
+	
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}

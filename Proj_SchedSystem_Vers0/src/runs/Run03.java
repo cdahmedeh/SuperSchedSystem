@@ -1,6 +1,7 @@
 package runs;
 
 import constraint.MustHaveCourse;
+import constraint.NoConflicts;
 import constraint.PreferedGeneralCourseTime;
 import schedule.CourseBlock;
 import schedule.CourseTime;
@@ -46,15 +47,20 @@ public class Run03 {
 		student2.setSchedule(sched2);
 		
 		//Give the students some constraints
+		student1.addConstraint(new NoConflicts());
 		student1.addConstraint(new MustHaveCourse("SEG1010"));
 		student1.addConstraint(new MustHaveCourse("FRA9999"));
 		student1.addConstraint(new PreferedGeneralCourseTime(8, 30, 15, 30));
 		
+		student2.addConstraint(new NoConflicts());
 		student2.addConstraint(new MustHaveCourse("MAT3921"));
 		student2.addConstraint(new PreferedGeneralCourseTime(15, 30, 19, 30));
 		
 		//Check the constraints
 		System.out.println(student1.getTotalRestraintsScore());
+		System.out.println(student1.explainConstraints());
+		
 		System.out.println(student2.getTotalRestraintsScore());
+		System.out.println(student2.explainConstraints());
 	}
 }
