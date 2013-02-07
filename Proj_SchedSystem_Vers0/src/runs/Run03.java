@@ -17,7 +17,7 @@ public class Run03 {
 		CourseBlock SEG1010A_LAB1 = new CourseBlock("SEG1010", "LAB1", "A", new CourseTime(DayOfWeek.FRIDAY, 16, 30, 180));
 		CourseBlock SEG1010A_TUT1 = new CourseBlock("SEG1010", "TUT1", "A", new CourseTime(DayOfWeek.FRIDAY, 22, 30, 90));
 		
-		CourseBlock FRA9999A_LEC1 = new CourseBlock("FRA9999A", "LEC1", "A", new CourseTime(DayOfWeek.TUESDAY, 10, 30, 300));
+		CourseBlock FRA9999A_LEC1 = new CourseBlock("FRA9999", "LEC1", "A", new CourseTime(DayOfWeek.TUESDAY, 10, 30, 300));
 				
 		CourseBlock MAT3921Z_LEC1 = new CourseBlock("MAT3921", "LEC1", "Z", new CourseTime(DayOfWeek.WEDNESDAY, 17, 30, 90));
 		CourseBlock MAT3921Z_LEC2 = new CourseBlock("MAT3921", "LEC2", "Z", new CourseTime(DayOfWeek.MONDAY, 12, 30, 90));
