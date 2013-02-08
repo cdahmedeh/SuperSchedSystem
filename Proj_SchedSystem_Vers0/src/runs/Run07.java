@@ -15,6 +15,7 @@ import org.uncommons.watchmaker.framework.FitnessEvaluator;
 import org.uncommons.watchmaker.framework.GenerationalEvolutionEngine;
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
+import org.uncommons.watchmaker.framework.operators.ListCrossover;
 import org.uncommons.watchmaker.framework.selection.SigmaScaling;
 import org.uncommons.watchmaker.framework.termination.TargetFitness;
 
@@ -108,9 +109,74 @@ public class Run07{
 			}
 		};
 		
-		List<EvolutionaryOperator<Solution>> operators = new LinkedList<>();
-		operators.add(operator1);
+		EvolutionaryOperator<Solution> operator2 = new EvolutionaryOperator<Solution>() {
+			
+			@Override
+			public List<Solution> apply(List<Solution> selectedCandidates, Random rng) {
+				List<Solution> copies = selectedCandidates;
+				ArrayList<Solution> rcopies = new ArrayList<>();
+				
+				for (int i=0; i<copies.size()-1; i=i+2){
+					Solution parent1 = copies.get(i);
+					Solution parent2 = copies.get(i+1);
+					
+					int point = rng.nextInt(parent1.getBlocks().size());
+					
+					Solution offspring = new Solution();
+					ArrayList<CourseBlock> blocks = new ArrayList<>();
+					
+					for (int j=0; j<parent1.getBlocks().size(); j++){
+						if (j<point){
+							blocks.add(parent1.getBlocks().get(j));
+						}else{
+							blocks.add(parent2.getBlocks().get(j));
+						}
+					}
+					
+					offspring.setBlocks(blocks);
+					rcopies.add(parent1);
+					rcopies.add(offspring);
+				}
+				
+				if (copies.size() %2 != 0){
+					rcopies.add(selectedCandidates.get(selectedCandidates.size()-1));
+				}
+				
+				return rcopies;
+			}
+		};
 		
+		EvolutionaryOperator<Solution> operator3 = new EvolutionaryOperator<Solution>() {
+			
+			@Override
+			public List<Solution> apply(List<Solution> selectedCandidates, Random rng) {
+				if (rng.nextDouble() < 0.01) {
+				ArrayList<Solution> copies = new ArrayList<>();
+				
+				for (Solution solution: selectedCandidates){
+					Solution copy = solution.copy();
+
+					if (rng.nextDouble() < 0.5){
+						for (CourseBlock block: copy.getBlocks()){
+								block.setCourseTime(Run07Generator.generateRandomTime(rng));
+						}
+					}
+					
+					copies.add(copy);
+				}
+				
+				return copies;
+				}
+				
+				return selectedCandidates;
+			}
+		};
+		
+		List<EvolutionaryOperator<Solution>> operators = new LinkedList<>();
+		operators.add(operator3);
+		operators.add(operator1);
+		operators.add(operator2);
+				
 		EvolutionaryOperator<Solution> pipeline
 	    = new EvolutionPipeline<Solution>(operators);
 		

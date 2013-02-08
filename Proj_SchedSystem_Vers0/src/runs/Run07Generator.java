@@ -32,9 +32,27 @@ public class Run07Generator {
 		student2.addConstraint(new MustHaveCourse("SEG2506"));
 		student2.addConstraint(new MustHaveCourse("FRA1529"));
 		student2.addConstraint(new MustHaveCourse("SEG2911"));
-		student1.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
-		student1.addConstraint(new NoConflicts());
+		student2.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
+		student2.addConstraint(new NoConflicts());
 		students.add(student2);
+	
+		Student student3 = new Student();
+		student3.addConstraint(new MustHaveCourse("CSI2520"));
+		student3.addConstraint(new MustHaveCourse("MAT2722"));
+		student3.addConstraint(new MustHaveCourse("SEG2911"));
+		student3.addConstraint(new MustHaveCourse("MAT1724"));
+		student3.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
+		student3.addConstraint(new NoConflicts());
+		students.add(student3);
+		
+		Student student4 = new Student();
+		student4.addConstraint(new MustHaveCourse("CSI2520"));
+		student4.addConstraint(new MustHaveCourse("SEG2506"));
+		student4.addConstraint(new MustHaveCourse("MAT1724"));
+		student4.addConstraint(new MustHaveCourse("SEG2591"));
+		student4.addConstraint(new PreferedGeneralCourseTime(8, 30, 22, 30));
+		student4.addConstraint(new NoConflicts());
+		students.add(student4);
 		
 		return students;		
 	}
@@ -51,7 +69,9 @@ public class Run07Generator {
 		ArrayList<CourseBlock> blocks = new ArrayList<>();
 		
 		for (String course: mustHaveCourses.keySet()){
-			blocks.add(new CourseBlock(course, "LEC", "A", null));
+			blocks.add(new CourseBlock(course, "LEC1", "A", null));
+			blocks.add(new CourseBlock(course, "LEC2", "A", null));
+			blocks.add(new CourseBlock(course, "TUT", "A", null));
 			blocks.add(new CourseBlock(course, "LAB", "A", null));
 		}
 		
