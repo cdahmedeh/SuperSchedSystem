@@ -2,6 +2,7 @@ package student;
 
 import java.util.ArrayList;
 
+import schedule.CourseBlock;
 import schedule.Schedule;
 
 import constraint.Constraint;
@@ -57,5 +58,17 @@ public class Student {
 	
 	public Schedule getSchedule() {
 		return this.schedule;
+	}
+
+	public void register(ArrayList<CourseBlock> blocks) {
+		schedule = new Schedule();
+		
+		for (CourseBlock block: blocks){
+			for (String course: this.getWantedCourses()){
+				if (block.getCourseName().equals(course)) {
+					schedule.addCourseBlock(block);
+				}
+			}
+		}
 	}
 }

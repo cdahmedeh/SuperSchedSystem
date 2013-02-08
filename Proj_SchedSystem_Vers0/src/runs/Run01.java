@@ -13,8 +13,8 @@ public class Run01 {
 		Schedule sched = new Schedule();
 		
 		sched.addCourseBlock(new CourseBlock("CSI3010", "LEC1", "A", new CourseTime(DayOfWeek.MONDAY, 11, 30, 90)));
-		sched.addCourseBlock(new CourseBlock("CSI3010", "LEC2", "A", new CourseTime(DayOfWeek.MONDAY, 14, 30, 90)));
-		sched.addCourseBlock(new CourseBlock("CSI3010", "LAB1", "A", new CourseTime(DayOfWeek.WEDNESDAY, 8, 30, 180)));
+		sched.addCourseBlock(new CourseBlock("CSI3010", "LEC2", "A", new CourseTime(DayOfWeek.MONDAY, 13, 0, 90)));
+		sched.addCourseBlock(new CourseBlock("CSI3010", "LAB1", "A", new CourseTime(DayOfWeek.WEDNESDAY, 14, 30, 180)));
 		sched.addCourseBlock(new CourseBlock("SEG9999", "TUT", "A", new CourseTime(DayOfWeek.WEDNESDAY, 9, 30, 180)));
 
 		System.out.println(sched);

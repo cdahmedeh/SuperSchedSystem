@@ -34,4 +34,20 @@ public class CourseBlock {
 	public String getCourseName() {
 		return this.name;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
+	}
 }

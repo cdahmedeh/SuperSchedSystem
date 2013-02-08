@@ -1,0 +1,68 @@
+package runs;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
+import constraint.MustHaveCourse;
+import constraint.NoConflicts;
+import constraint.PreferedGeneralCourseTime;
+
+import schedule.CourseBlock;
+import schedule.CourseTime;
+import schedule.DayOfWeek;
+import student.Student;
+
+public class Run07Generator {
+
+	public static ArrayList<Student> generateStudents() {
+		ArrayList<Student> students = new ArrayList<>();
+		
+		Student student1 = new Student();
+		student1.addConstraint(new MustHaveCourse("CSI2520"));
+		student1.addConstraint(new MustHaveCourse("SEG2506"));
+		student1.addConstraint(new MustHaveCourse("MAT2722"));
+		student1.addConstraint(new MustHaveCourse("MAT1724"));
+		student1.addConstraint(new PreferedGeneralCourseTime(8, 30, 17, 30));
+		student1.addConstraint(new NoConflicts());
+		students.add(student1);
+		
+		Student student2 = new Student();
+		student2.addConstraint(new MustHaveCourse("CSI2520"));
+		student2.addConstraint(new MustHaveCourse("SEG2506"));
+		student2.addConstraint(new MustHaveCourse("FRA1529"));
+		student2.addConstraint(new MustHaveCourse("SEG2911"));
+		student1.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
+		student1.addConstraint(new NoConflicts());
+		students.add(student2);
+		
+		return students;		
+	}
+
+	public static ArrayList<CourseBlock> generateBlocksBasedOnStudents(ArrayList<Student> students){
+		HashMap<String, Integer> mustHaveCourses = new HashMap<>();
+		
+		for (Student student: students){
+			for (String course: student.getWantedCourses()){
+				mustHaveCourses.put(course, null);
+			}
+		}
+		
+		ArrayList<CourseBlock> blocks = new ArrayList<>();
+		
+		for (String course: mustHaveCourses.keySet()){
+			blocks.add(new CourseBlock(course, "LEC", "A", null));
+			blocks.add(new CourseBlock(course, "LAB", "A", null));
+		}
+		
+		return blocks;
+	}
+
+	public static CourseTime generateRandomTime(Random rng) {
+		return new CourseTime(
+				DayOfWeek.getDayOnNumber(rng.nextInt(5)), 
+				rng.nextInt(24), 
+				rng.nextInt(2)*30, 
+				90);
+	}
+}
