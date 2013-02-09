@@ -212,6 +212,20 @@ public class Run08Fast{
 				
 				double fit = data.getBestCandidateFitness();
 				System.out.println(fit);
+				
+				if (fit == 0.0){
+					ArrayList<Student> studentsCopy = new ArrayList<>();	
+					
+					for (Student student: students){
+						studentsCopy.add(student.clone());
+					}
+					
+					for (Student student: studentsCopy){
+						student.register(data.getBestCandidate().getBlocks());
+						System.out.println(student.getSchedule());
+					}
+					
+				}
 			}
 		});
 		
