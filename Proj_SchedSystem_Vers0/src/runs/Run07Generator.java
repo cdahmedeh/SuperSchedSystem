@@ -6,6 +6,7 @@ import java.util.Random;
 
 import constraint.MustHaveCourse;
 import constraint.NoConflicts;
+import constraint.NoCourseAtThisTime;
 import constraint.PreferedGeneralCourseTime;
 
 import schedule.CourseBlock;
@@ -23,6 +24,7 @@ public class Run07Generator {
 		student1.addConstraint(new MustHaveCourse("SEG2506"));
 		student1.addConstraint(new MustHaveCourse("MAT2722"));
 		student1.addConstraint(new MustHaveCourse("MAT1724"));
+		student1.addConstraint(new MustHaveCourse("ELG1010"));
 		student1.addConstraint(new PreferedGeneralCourseTime(8, 30, 17, 30));
 		student1.addConstraint(new NoConflicts());
 		students.add(student1);
@@ -50,10 +52,12 @@ public class Run07Generator {
 		student4.addConstraint(new MustHaveCourse("SEG2506"));
 		student4.addConstraint(new MustHaveCourse("MAT1724"));
 		student4.addConstraint(new MustHaveCourse("SEG2591"));
+		student4.addConstraint(new MustHaveCourse("MAT2722"));
 		student4.addConstraint(new PreferedGeneralCourseTime(8, 30, 22, 30));
+		student4.addConstraint(new NoCourseAtThisTime(11, 00, 13, 00, DayOfWeek.FRIDAY));
 		student4.addConstraint(new NoConflicts());
 		students.add(student4);
-		
+
 		return students;		
 	}
 

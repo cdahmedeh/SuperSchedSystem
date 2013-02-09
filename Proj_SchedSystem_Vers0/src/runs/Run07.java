@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.uncommons.maths.random.MersenneTwisterRNG;
+import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
 import org.uncommons.watchmaker.framework.EvolutionObserver;
@@ -16,7 +17,11 @@ import org.uncommons.watchmaker.framework.GenerationalEvolutionEngine;
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.operators.ListCrossover;
+import org.uncommons.watchmaker.framework.selection.RankSelection;
+import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 import org.uncommons.watchmaker.framework.selection.SigmaScaling;
+import org.uncommons.watchmaker.framework.selection.StochasticUniversalSampling;
+import org.uncommons.watchmaker.framework.selection.TournamentSelection;
 import org.uncommons.watchmaker.framework.termination.TargetFitness;
 
 import schedule.CourseBlock;
@@ -122,20 +127,27 @@ public class Run07{
 					
 					int point = rng.nextInt(parent1.getBlocks().size());
 					
-					Solution offspring = new Solution();
-					ArrayList<CourseBlock> blocks = new ArrayList<>();
+					Solution offspring1 = new Solution();
+					ArrayList<CourseBlock> blocks1 = new ArrayList<>();
+					
+					Solution offspring2 = new Solution();
+					ArrayList<CourseBlock> blocks2 = new ArrayList<>();
 					
 					for (int j=0; j<parent1.getBlocks().size(); j++){
 						if (j<point){
-							blocks.add(parent1.getBlocks().get(j));
+							blocks1.add(parent2.getBlocks().get(j));
+							blocks2.add(parent1.getBlocks().get(j));
 						}else{
-							blocks.add(parent2.getBlocks().get(j));
+							blocks1.add(parent1.getBlocks().get(j));
+							blocks2.add(parent2.getBlocks().get(j));
 						}
 					}
 					
-					offspring.setBlocks(blocks);
-					rcopies.add(parent1);
-					rcopies.add(offspring);
+					offspring1.setBlocks(blocks1);
+					offspring2.setBlocks(blocks2);
+					rcopies.add(offspring1);
+					rcopies.add(offspring2);
+//					rcopies.add(parent1);
 				}
 				
 				if (copies.size() %2 != 0){
@@ -150,7 +162,7 @@ public class Run07{
 			
 			@Override
 			public List<Solution> apply(List<Solution> selectedCandidates, Random rng) {
-				if (rng.nextDouble() < 0.01) {
+				if (rng.nextDouble() < 0.1) {
 				ArrayList<Solution> copies = new ArrayList<>();
 				
 				for (Solution solution: selectedCandidates){
@@ -184,7 +196,11 @@ public class Run07{
 				candidateFactory, 
 				pipeline, 
 				fitnessEvaluator, 
-				new SigmaScaling(), 
+//				new SigmaScaling(),
+//				new TournamentSelection(new Probability(0.6)),
+				new RouletteWheelSelection(),
+//				new StochasticUniversalSampling(),
+//				new RankSelection(),
 				new MersenneTwisterRNG()
 		);
 		
@@ -193,10 +209,29 @@ public class Run07{
 			@Override
 			public void populationUpdate(PopulationData<? extends Solution> data) {
 				System.out.println(data.getMeanFitness());
-				System.out.println(data.getBestCandidateFitness());
+				System.out.println(data.getPopulationSize());
+				
+				double fit = data.getBestCandidateFitness();
+				System.out.println(fit);
+				
+				if (fit == 0.0){
+					Solution candidate = data.getBestCandidate();
+					
+					ArrayList<Student> students = Run07Generator.generateStudents();
+					
+					for (Student student: students){
+						student.register(candidate.getBlocks());
+						System.out.println(student);
+						System.out.println(student.getSchedule());
+						System.out.println();
+					}
+				}
 			}
 		});
 		
-		ee.evolve(1000, 10, new TargetFitness(0, false));
+		long start = System.currentTimeMillis();
+		ee.evolve(50, 5, new TargetFitness(0, false));
+		long end = System.currentTimeMillis();
+		System.out.println(end-start);
 	}	
 }
