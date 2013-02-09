@@ -37,4 +37,9 @@ public class PreferedGeneralCourseTime implements Constraint {
 		return numOfProblematicCourses;
 	}
 	
+	@Override
+	public Constraint clone() {
+		PreferedGeneralCourseTime cloned = new PreferedGeneralCourseTime(prefBegin.getHourOfDay(),prefBegin.getMinuteOfHour(),prefEnd.getHourOfDay(),prefEnd.getMinuteOfHour());
+		return cloned;
+	}
 }

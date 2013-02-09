@@ -13,5 +13,11 @@ public class NoConflicts implements Constraint {
 	public int getScore(Schedule schedule) {
 		return schedule.findConflicts().size() * 100;
 	}
+	
+	@Override
+	public Constraint clone() {
+		NoConflicts cloned = new NoConflicts();
+		return cloned;
+	}
 
 }

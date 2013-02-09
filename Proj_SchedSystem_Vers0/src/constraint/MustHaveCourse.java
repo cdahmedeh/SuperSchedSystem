@@ -32,4 +32,9 @@ public class MustHaveCourse implements Constraint {
 		return 10;
 	}
 
+	@Override
+	public Constraint clone() {
+		MustHaveCourse cloned = new MustHaveCourse(mustHaveCourseName);
+		return cloned;
+	}
 }

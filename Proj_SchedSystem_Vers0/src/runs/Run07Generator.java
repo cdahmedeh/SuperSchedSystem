@@ -32,8 +32,8 @@ public class Run07Generator {
 		student2.addConstraint(new MustHaveCourse("SEG2506"));
 		student2.addConstraint(new MustHaveCourse("FRA1529"));
 		student2.addConstraint(new MustHaveCourse("SEG2911"));
-		student1.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
-		student1.addConstraint(new NoConflicts());
+		student2.addConstraint(new PreferedGeneralCourseTime(11, 30, 22, 00));
+		student2.addConstraint(new NoConflicts());
 		students.add(student2);
 		
 		return students;		
