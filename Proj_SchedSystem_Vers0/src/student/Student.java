@@ -8,7 +8,7 @@ import schedule.Schedule;
 import constraint.Constraint;
 import constraint.MustHaveCourse;
 
-public class Student {
+public class Student implements Cloneable{
 	private ArrayList<Constraint> constraints = new ArrayList<>();
 	private Schedule schedule = new Schedule();
 	
@@ -70,5 +70,17 @@ public class Student {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * (Nic) Note: This clone function ommits the schedule of the students
+	 */
+	public Student clone(){
+		Student cloned = new Student();
+		for(Constraint constraint: constraints){
+			cloned.addConstraint(constraint.clone());
+		}
+		
+		return cloned;
 	}
 }

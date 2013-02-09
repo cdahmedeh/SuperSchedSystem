@@ -31,6 +31,7 @@ import student.Student;
 
 public class Run07{
 	public static void main(String[] args) {
+		final ArrayList<Student> students = Run07Generator.generateStudents();
 		CandidateFactory<Solution> candidateFactory = new CandidateFactory<Solution>() {
 			
 			@Override
@@ -38,7 +39,7 @@ public class Run07{
 				Solution solution = new Solution();
 				
 				ArrayList<CourseBlock> blocks = 			
-						Run07Generator.generateBlocksBasedOnStudents(Run07Generator.generateStudents());
+						Run07Generator.generateBlocksBasedOnStudents(students);
 				
 				for (CourseBlock block: blocks){
 					block.setCourseTime(Run07Generator.generateRandomTime(rng));
