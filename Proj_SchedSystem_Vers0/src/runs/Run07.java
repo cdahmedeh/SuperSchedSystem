@@ -231,7 +231,7 @@ public class Run07{
 		});
 		
 		long start = System.currentTimeMillis();
-		ee.evolve(6000, 60, new TargetFitness(0, false));
+		ee.evolve(50, 5, new TargetFitness(0, false));
 		long end = System.currentTimeMillis();
 		System.out.println(end-start);
 	}	

@@ -19,7 +19,7 @@ public class Run07Generator {
 	public static ArrayList<Student> generateStudents() {
 		ArrayList<Student> students = new ArrayList<>();
 		
-		for (int i=0; i<100; i++){
+//		for (int i=0; i<100; i++){
 		Student student1 = new Student();
 		student1.addConstraint(new MustHaveCourse("CSI2520"));
 		student1.addConstraint(new MustHaveCourse("SEG2506"));
@@ -78,7 +78,7 @@ public class Run07Generator {
 		student6.addConstraint(new NoCourseAtThisTime(19, 00, 22, 00, DayOfWeek.WEDNESDAY));
 		student6.addConstraint(new NoConflicts());
 		students.add(student6);
-		}
+//		}
 		
 		return students;		
 	}
