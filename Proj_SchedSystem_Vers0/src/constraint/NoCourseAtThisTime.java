@@ -39,4 +39,11 @@ public class NoCourseAtThisTime implements Constraint {
 		return numOfProblematicCourses*10;
 	}
 	
+	@Override
+	public Constraint clone() {
+//		NoConflicts cloned = new NoConflicts();
+//		return cloned;
+		return null;
+	}
+
 }
