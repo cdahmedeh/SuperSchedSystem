@@ -19,6 +19,7 @@ public class Run07Generator {
 	public static ArrayList<Student> generateStudents() {
 		ArrayList<Student> students = new ArrayList<>();
 		
+		for (int i=0; i<100; i++){
 		Student student1 = new Student();
 		student1.addConstraint(new MustHaveCourse("CSI2520"));
 		student1.addConstraint(new MustHaveCourse("SEG2506"));
@@ -58,6 +59,27 @@ public class Run07Generator {
 		student4.addConstraint(new NoConflicts());
 		students.add(student4);
 
+		Student student5 = new Student();
+		student5.addConstraint(new MustHaveCourse("MAT1724"));
+		student5.addConstraint(new MustHaveCourse("SEG2506"));
+		student5.addConstraint(new MustHaveCourse("CEG1500"));
+		student5.addConstraint(new MustHaveCourse("FRA1529"));
+		student5.addConstraint(new MustHaveCourse("MAT2722"));
+		student5.addConstraint(new MustHaveCourse("ELG1010"));
+		student5.addConstraint(new PreferedGeneralCourseTime(10, 30, 22, 30));
+		student5.addConstraint(new NoCourseAtThisTime(19, 00, 22, 00, DayOfWeek.MONDAY));
+		student5.addConstraint(new NoConflicts());
+		students.add(student5);
+		
+		Student student6 = new Student();
+		student6.addConstraint(new MustHaveCourse("MAT1724"));
+		student6.addConstraint(new MustHaveCourse("ELG1010"));
+		student6.addConstraint(new PreferedGeneralCourseTime(10, 30, 22, 30));
+		student6.addConstraint(new NoCourseAtThisTime(19, 00, 22, 00, DayOfWeek.WEDNESDAY));
+		student6.addConstraint(new NoConflicts());
+		students.add(student6);
+		}
+		
 		return students;		
 	}
 
