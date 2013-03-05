@@ -1,19 +1,18 @@
 package constraint;
 
-import org.joda.time.LocalTime;
-
 import schedule.CourseBlock;
 import schedule.DayOfWeek;
 import schedule.Schedule;
+import time.SuperFastTime;
 
 public class NoCourseAtThisTime implements Constraint {
-	private LocalTime prefBegin;
-	private LocalTime prefEnd;
+	private SuperFastTime prefBegin;
+	private SuperFastTime prefEnd;
 	private DayOfWeek dayOfWeek;
 	
 	public NoCourseAtThisTime(int prefHourBegin, int prefMinuteBegin, int prefHourEnd, int prefMinuteEnd, DayOfWeek dayOfWeek) {
-		this.prefBegin = new LocalTime(prefHourBegin, prefMinuteBegin);
-		this.prefEnd = new LocalTime(prefHourEnd, prefMinuteEnd);
+		this.prefBegin = new SuperFastTime(prefHourBegin, prefMinuteBegin);
+		this.prefEnd = new SuperFastTime(prefHourEnd, prefMinuteEnd);
 		this.dayOfWeek = dayOfWeek;
 	}
 	

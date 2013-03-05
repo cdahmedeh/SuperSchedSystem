@@ -1,17 +1,16 @@
 package constraint;
 
-import org.joda.time.LocalTime;
-
 import schedule.CourseBlock;
 import schedule.Schedule;
+import time.SuperFastTime;
 
 public class PreferedGeneralCourseTime implements Constraint {
-	private LocalTime prefBegin;
-	private LocalTime prefEnd;
+	private SuperFastTime prefBegin;
+	private SuperFastTime prefEnd;
 	
 	public PreferedGeneralCourseTime(int prefHourBegin, int prefMinuteBegin, int prefHourEnd, int prefMinuteEnd) {
-		this.prefBegin = new LocalTime(prefHourBegin, prefMinuteBegin);
-		this.prefEnd = new LocalTime(prefHourEnd, prefMinuteEnd);
+		this.prefBegin = new SuperFastTime(prefHourBegin, prefMinuteBegin);
+		this.prefEnd = new SuperFastTime(prefHourEnd, prefMinuteEnd);
 	}
 	
 	@Override

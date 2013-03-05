@@ -1,31 +1,31 @@
 package schedule;
 
-import org.joda.time.LocalTime;
+import time.SuperFastTime;
 
 public class CourseTime {
-	private LocalTime begin;
-	private LocalTime end;
+	private SuperFastTime begin;
+	private SuperFastTime end;
 	private DayOfWeek day;
 	
 	public CourseTime(DayOfWeek day, int hour, int minute, int duration) {
 		this.day = day;
 		
-		this.begin = new LocalTime(hour, minute);
+		this.begin = new SuperFastTime(hour, minute);
 		this.end = begin.plusMinutes(duration);
 	}
 	
 	public CourseTime(DayOfWeek day, int startHour, int startMinute, int endHour, int endMinute) {
 		this.day = day;
 		
-		this.begin = new LocalTime(startHour, startMinute);
-		this.end = new LocalTime(endHour, endMinute);
+		this.begin = new SuperFastTime(startHour, startMinute);
+		this.end = new SuperFastTime(endHour, endMinute);
 	}
 	
-	public LocalTime getBegin(){
+	public SuperFastTime getBegin(){
 		return this.begin;
 	}
 	
-	public LocalTime getEnd(){
+	public SuperFastTime getEnd(){
 		return this.end;
 	}
 	
@@ -34,11 +34,11 @@ public class CourseTime {
 	}
 	
 		
-	public LocalTime getCourseBegins(){
+	public SuperFastTime getCourseBegins(){
 		return this.begin;
 	}
 	
-	public LocalTime getCourseEnds(){
+	public SuperFastTime getCourseEnds(){
 		return this.end;
 	}
 	

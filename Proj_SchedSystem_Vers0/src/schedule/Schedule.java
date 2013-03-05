@@ -2,7 +2,8 @@ package schedule;
 
 import java.util.ArrayList;
 
-import org.joda.time.LocalTime;
+import time.SuperFastTime;
+
 
 public class Schedule {
 	private ArrayList<CourseBlock> schedule = new ArrayList<>();
@@ -29,10 +30,10 @@ public class Schedule {
 	
 	public ArrayList<Conflict> findConflicts() {
 		ArrayList<Conflict> conflicts = new ArrayList<>();
-		LocalTime iStart;
-		LocalTime iEnd;
-		LocalTime jStart;
-		LocalTime jEnd;
+		SuperFastTime iStart;
+		SuperFastTime iEnd;
+		SuperFastTime jStart;
+		SuperFastTime jEnd;
 		DayOfWeek iDay;
 		DayOfWeek jDay;
 
