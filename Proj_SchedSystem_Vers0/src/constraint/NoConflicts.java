@@ -11,7 +11,7 @@ public class NoConflicts implements Constraint {
 
 	@Override
 	public int getScore(Schedule schedule) {
-		return schedule.findConflicts().size() * 100;
+		return schedule.findConflicts1().size() * 100;
 	}
 	
 	@Override
