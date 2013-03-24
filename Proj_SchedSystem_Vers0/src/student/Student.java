@@ -11,6 +11,9 @@ import constraint.MustHaveCourse;
 
 public class Student implements Cloneable{
 	private ArrayList<Constraint> constraints = new ArrayList<>();
+	public ArrayList<Constraint> getConstraints() {
+		return constraints;
+	}
 	private Schedule schedule = new Schedule();
 	private ArrayList<String> listOfCourses;
 	
@@ -55,6 +58,18 @@ public class Student implements Cloneable{
 		return listOfCourses;
 	}
 	
+	public ArrayList<String> getWantedCoursesNonOptimzed(){
+			listOfCourses = new ArrayList<>() ;
+
+			for (Constraint constraint: constraints){
+				if (constraint instanceof MustHaveCourse){
+					getListOfCourses().add(((MustHaveCourse)constraint).getCourseName());
+				}
+			}
+
+		return listOfCourses;
+	}
+	
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}
@@ -91,5 +106,20 @@ public class Student implements Cloneable{
 
 	public void setListOfCourses(ArrayList<String> listOfCourses) {
 		this.listOfCourses = listOfCourses;
+	}
+	
+	private String username = "";
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public Student() {
+	}
+	
+	public Student(String username) {
+		this.username = username;
 	}
 }

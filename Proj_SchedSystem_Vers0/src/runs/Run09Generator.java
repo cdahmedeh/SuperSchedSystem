@@ -25,7 +25,7 @@ public class Run09Generator {
 		
 		for (int i = 0; i<amountOfStudents;i++){
 			HashMap<String,Object> takingClasses =  new HashMap<>();
-			Student tempStudent = new Student();
+			Student tempStudent = new Student(String.valueOf(i));
 			
 			while (takingClasses.size()<5){ //Every student will take 5 classes, randomly selected from class list
 				takingClasses.put(classList.get(random.nextInt((Integer)classList.size())),null);

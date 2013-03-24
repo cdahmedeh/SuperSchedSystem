@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="elibs/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="elibs/uncommons-maths-1.2.1.jar"/>
 	<classpathentry kind="lib" path="elibs/watchmaker-framework-0.7.1.jar" sourcepath="slibs/watchmaker-framework-0.7.1-src.jar"/>
+	<classpathentry kind="lib" path="elibs/org.eclipse.swt.gtk.linux.x86_3.100.1.v4234e.jar"/>
+	<classpathentry kind="lib" path="elibs/swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
