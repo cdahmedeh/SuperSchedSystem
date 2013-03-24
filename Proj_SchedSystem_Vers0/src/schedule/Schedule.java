@@ -29,57 +29,52 @@ public class Schedule {
 		return this.schedule;
 	}
 	
-	public ArrayList<Conflict> findConflicts1(){
+	public ArrayList<Conflict> findConflicts1() {
 		ArrayList<Conflict> conflicts = new ArrayList<>();
 		SuperFastTime iStart;
 		SuperFastTime iEnd;
 		DayOfWeek iDay;
-		HashMap<Integer,Boolean> conflictFinder = new HashMap();
-		
-		for (int i = 0; i<schedule.size();i++){
-			iStart = schedule.get(i).getCourseTime().getBegin();
-			iEnd = schedule.get(i).getCourseTime().getEnd();
-			iDay = schedule.get(i).getCourseTime().getDay();
-			
-			
-			if (conflictFinder.get(schedule.get(i)) != null){
-				conflicts.add(
-						new Conflict(//we're just counting instead of adding the conflict courses				
-							null,
-							null,
-							null
-							)
-					);
-			}else{
-				conflictFinder.put(schedule.get(i).hashCode(), true);
+		HashMap<Integer, Boolean> conflictFinder = new HashMap();
+		CourseBlock courseBlock;
+		for (int i = 0; i < schedule.size(); i++) {
+			courseBlock = schedule.get(i);
+			iStart = courseBlock.getCourseTime().getBegin();
+			iEnd = courseBlock.getCourseTime().getEnd();
+			iDay = courseBlock.getCourseTime().getDay();
+
+			if (conflictFinder.get(courseBlock) != null) {
+				conflicts.add(new Conflict(// we're just counting instead of
+											// adding the conflict courses
+						null, null, null));
+			} else {
+				conflictFinder.put(courseBlock.hashCode(), true);
 			}
-		
-			if (((iEnd.getHourOfDay()*60+iEnd.getMinuteOfHour())-(iStart.getHourOfDay()*60+iStart.getMinuteOfHour()) ) > 90){
+
+			if (((iEnd.getHourOfDay() * 60 + iEnd.getMinuteOfHour()) - (iStart
+					.getHourOfDay() * 60 + iStart.getMinuteOfHour())) > 90) {
 				int newHash;
-				if(schedule.get(i).hashCode()/10%10==0){//course xx:00
-					newHash = 
-							schedule.get(i).getCourseTime().getDay().getValue()*10000+
-							(schedule.get(i).getCourseTime().getBegin().getHourOfDay()+1)*100+
-							30;
-				}else{//course xx:30
-					newHash = 
-							schedule.get(i).getCourseTime().getDay().getValue()*10000+
-							(schedule.get(i).getCourseTime().getBegin().getHourOfDay()+2)*100+
-							00;
+				if (courseBlock.hashCode() / 10 % 10 == 0) {// course xx:00
+					newHash = courseBlock.getCourseTime().getDay()
+							.getValue()
+							* 10000
+							+ (courseBlock.getCourseTime().getBegin()
+									.getHourOfDay() + 1) * 100 + 30;
+				} else {// course xx:30
+					newHash = courseBlock.getCourseTime().getDay()
+							.getValue()
+							* 10000
+							+ (courseBlock.getCourseTime().getBegin()
+									.getHourOfDay() + 2) * 100 + 00;
 				}
-						
+
 				if (conflictFinder.get(newHash) != null)
-					conflicts.add(
-							new Conflict(//we're just counting instead of adding the conflict courses				
-								null,
-								null,
-								null
-								)
-						);
+					conflicts.add(new Conflict(// we're just counting instead of
+												// adding the conflict courses
+							null, null, null));
 				else
 					conflictFinder.put(newHash, true);
 			}
-		}	
+		}
 		return conflicts;
 	}
 	
