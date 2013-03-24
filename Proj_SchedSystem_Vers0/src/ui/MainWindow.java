@@ -88,9 +88,9 @@ public class MainWindow {
 		textPassword = new Text(composite, SWT.BORDER);
 		textPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		HashMap<Integer, String> classList = Run09Generator.generateClassList(20);
+		HashMap<Integer, String> classList = Run09Generator.generateClassList(100);
 		courses = new ArrayList<>(classList.values());		 					
-		students = Run09Generator.generateStudents(300, classList);						
+		students = Run09Generator.generateStudents(20, classList);						
 		
 		btnLogin.addSelectionListener(new SelectionAdapter() {
 			@Override

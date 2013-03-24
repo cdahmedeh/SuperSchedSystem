@@ -246,7 +246,7 @@ public class Run10FastExternalizer{
 		});
 		
 		long start = System.currentTimeMillis();
-		ee.evolve(200, 10, new TargetFitness(0, false));
+		ee.evolve(30, 10, new TargetFitness(0, false));
 		long end = System.currentTimeMillis();
 //		buffer.append(end-start);
 //		buffer.append("\n");
