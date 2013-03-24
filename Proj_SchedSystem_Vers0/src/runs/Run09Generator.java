@@ -25,7 +25,7 @@ public class Run09Generator {
 		
 		for (int i = 0; i<amountOfStudents;i++){
 			HashMap<String,Object> takingClasses =  new HashMap<>();
-			Student tempStudent = new Student();
+			Student tempStudent = new Student(String.valueOf(i));
 			
 			while (takingClasses.size()<5){ //Every student will take 5 classes, randomly selected from class list
 				takingClasses.put(classList.get(random.nextInt((Integer)classList.size())),null);
@@ -61,12 +61,12 @@ public class Run09Generator {
 		return classList;
 	}
 	
-	public static ArrayList<CourseBlock> generateBlocksBasedClassList(HashMap<Integer,String> classList){		
-		ArrayList<CourseBlock> blocks = new ArrayList<>();
+	public static HashMap<String, CourseBlock> generateBlocksBasedClassList(HashMap<Integer,String> classList){		
+		HashMap<String, CourseBlock> blocks = new HashMap<>();
 		
 		for (String course: classList.values()){
-			blocks.add(new CourseBlock(course, "LEC", "A", null));
-			blocks.add(new CourseBlock(course, "LAB", "A", null));
+			blocks.put(course, new CourseBlock(course, "LEC", "A", null));
+			blocks.put(course, new CourseBlock(course, "LAB", "A", null));
 		}
 		
 		return blocks;

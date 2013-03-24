@@ -24,12 +24,13 @@ import schedule.CourseBlock;
 import schedule.CourseTime;
 import solution.Solution;
 import student.Student;
+import ui.DoubleWrapper;
 
-public class Run09Fast{
-	public static void main(String[] args) {
-		final HashMap<Integer,String> classList = Run09Generator.generateClassList(10);		 					//10 courses
-		final ArrayList<Student> students = Run09Generator.generateStudents(6, classList);						//6 students
-		
+public class Run10FastExternalizer{
+	private static DoubleWrapper initialFitness;
+
+	public static void solutionProcessorStart(final HashMap<Integer,String> classList,  final ArrayList<Student> students, final StringBuffer buffer, DoubleWrapper initialFitness) {		
+		Run10FastExternalizer.initialFitness = initialFitness;
 		CandidateFactory<Solution> candidateFactory = new CandidateFactory<Solution>() {			
 			@Override
 			public Solution generateRandomCandidate(Random rng) {
@@ -209,11 +210,22 @@ public class Run09Fast{
 
 			@Override
 			public void populationUpdate(PopulationData<? extends Solution> data) {
-				System.out.println(data.getMeanFitness());
-				System.out.println(data.getPopulationSize());
+//				System.out.println(data.getMeanFitness());
+//				System.out.println(data.getPopulationSize());
+//				buffer.append(data.getMeanFitness());
+//				buffer.append("\n");
+//				buffer.append(data.getPopulationSize());
+//				buffer.append("\n");
 				
 				double fit = data.getBestCandidateFitness();
-				System.out.println(fit);
+//				System.out.println(fit);
+				buffer.delete(0, buffer.length());
+				buffer.append(fit);
+//				buffer.append("\n");
+				
+				if (Run10FastExternalizer.initialFitness.getDbl() == -1.0) {
+					Run10FastExternalizer.initialFitness.setDbl(fit);
+				}
 				
 				if (fit == 0.0){
 					ArrayList<Student> studentsCopy = new ArrayList<>();	
@@ -224,7 +236,9 @@ public class Run09Fast{
 					
 					for (Student student: studentsCopy){
 						student.register(data.getBestCandidate().getBlocks());
-						System.out.println(student.getSchedule());
+//						System.out.println(student.getSchedule());
+//						buffer.append(student.getSchedule().toString());
+//						buffer.append("\n");
 					}
 					
 				}
@@ -232,8 +246,10 @@ public class Run09Fast{
 		});
 		
 		long start = System.currentTimeMillis();
-		ee.evolve(40, 10, new TargetFitness(0, false));
+		ee.evolve(200, 10, new TargetFitness(0, false));
 		long end = System.currentTimeMillis();
-		System.out.println(end-start);
+//		buffer.append(end-start);
+//		buffer.append("\n");
 	}
+
 }
