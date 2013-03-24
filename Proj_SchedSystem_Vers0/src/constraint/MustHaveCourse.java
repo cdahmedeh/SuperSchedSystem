@@ -4,16 +4,9 @@ import schedule.CourseBlock;
 import schedule.Schedule;
 
 public class MustHaveCourse implements Constraint {
-
 	private String mustHaveCourseName = "";
-	
-	public MustHaveCourse(String courseName) {
-		this.mustHaveCourseName = courseName;
-	}
-	
-	public String getCourseName() {
-		return mustHaveCourseName;
-	}
+	public MustHaveCourse(String courseName) {this.mustHaveCourseName = courseName;}
+	public String getCourseName() {return mustHaveCourseName;}
 
 	@Override
 	public boolean verify(Schedule schedule) {
@@ -26,9 +19,7 @@ public class MustHaveCourse implements Constraint {
 			if (block.getCourseName().equals(mustHaveCourseName)){
 				return 0;
 			}
-			
 		}
-		
 		return 10;
 	}
 

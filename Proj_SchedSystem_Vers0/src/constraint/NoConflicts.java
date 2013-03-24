@@ -19,5 +19,4 @@ public class NoConflicts implements Constraint {
 		NoConflicts cloned = new NoConflicts();
 		return cloned;
 	}
-
 }

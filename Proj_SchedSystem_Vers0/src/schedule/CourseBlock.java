@@ -50,4 +50,9 @@ public class CourseBlock {
 	public void setSection(String section) {
 		this.section = section;
 	}
+	
+	@Override
+	public int hashCode() {
+		return times.getDay().getValue()*10000+times.getBegin().getHourOfDay()*100+times.getBegin().getMinuteOfHour();
+	}
 }
