@@ -12,6 +12,7 @@ import runs.Run09Fast;
 import runs.Run10FastExternalizer;
 import student.Student;
 
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridLayout;
@@ -31,7 +32,11 @@ public class SuperAdminPage extends Dialog {
 	private Text progressBar;
 	private DoubleWrapper initFit = new DoubleWrapper();
 	private ProgressBar progressBar_1;
+	private Thread thread;
+	
+	private String solutionProcessorStartResult;
 
+	
 	/**
 	 * Create the dialog.
 	 * @param parent
@@ -63,6 +68,14 @@ public class SuperAdminPage extends Dialog {
 					progressBar_1.setMaximum(new Double(Math.pow(initFit.getDbl().intValue(), 1)).intValue());
 					progressBar_1.setSelection(new Double(Math.pow(initFit.getDbl().intValue() - Double.valueOf(string).intValue(), 1)).intValue());
 					}
+
+					if (!string.isEmpty()){
+					if (thread != null && Double.valueOf(string).intValue() == 0){
+						new SolutionDemonstrator(shell, SWT.NONE, solutionProcessorStartResult).open();
+						thread = null;
+						solutionProcessorStartResult = "";
+					}
+					}
 				}
 				display.sleep();
 			}
@@ -91,6 +104,14 @@ public class SuperAdminPage extends Dialog {
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnNewButton.setText("Deconnexion");
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				thread.stop();
+				thread = null;
+				shell.close();
+			}
+		});
 		
 		Button btnNewButton_1 = new Button(shell, SWT.NONE);
 		btnNewButton_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -100,17 +121,20 @@ public class SuperAdminPage extends Dialog {
 		
 		btnNewButton_1.addSelectionListener(new SelectionListener() {
 
+
+
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Thread thread = new Thread(new Runnable() {
+				thread = new Thread(new Runnable() {
 					
+
 					@Override
 					public void run() {
 						HashMap<Integer, String> classList = new HashMap<>();
 						int i = 0; for (String course: courses){
 							classList.put(i++, course);
 						}
-						Run10FastExternalizer.solutionProcessorStart(classList, students, buffer, initFit);
+						solutionProcessorStartResult = Run10FastExternalizer.solutionProcessorStart(classList, students, buffer, initFit);
 					}
 				});
 				thread.start();

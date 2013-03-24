@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.uncommons.maths.random.MersenneTwisterRNG;
 import org.uncommons.watchmaker.framework.CandidateFactory;
 import org.uncommons.watchmaker.framework.EvolutionEngine;
@@ -25,11 +28,13 @@ import schedule.CourseTime;
 import solution.Solution;
 import student.Student;
 import ui.DoubleWrapper;
+import ui.SolutionDemonstrator;
 
 public class Run10FastExternalizer{
 	private static DoubleWrapper initialFitness;
+	protected static String superValue;
 
-	public static void solutionProcessorStart(final HashMap<Integer,String> classList,  final ArrayList<Student> students, final StringBuffer buffer, DoubleWrapper initialFitness) {		
+	public static String solutionProcessorStart(final HashMap<Integer,String> classList,  final ArrayList<Student> students, final StringBuffer buffer, DoubleWrapper initialFitness) {		
 		Run10FastExternalizer.initialFitness = initialFitness;
 		CandidateFactory<Solution> candidateFactory = new CandidateFactory<Solution>() {			
 			@Override
@@ -234,13 +239,18 @@ public class Run10FastExternalizer{
 						studentsCopy.add(student.clone());
 					}
 					
+					StringBuilder sb = new StringBuilder();
+					
 					for (Student student: studentsCopy){
 						student.register(data.getBestCandidate().getBlocks());
 //						System.out.println(student.getSchedule());
 //						buffer.append(student.getSchedule().toString());
 //						buffer.append("\n");
+						sb.append(student.getSchedule().toString());
+						sb.append("\n");
 					}
 					
+					superValue = sb.toString();
 				}
 			}
 		});
@@ -250,6 +260,8 @@ public class Run10FastExternalizer{
 		long end = System.currentTimeMillis();
 //		buffer.append(end-start);
 //		buffer.append("\n");
+		
+		return superValue;
 	}
 
 }
