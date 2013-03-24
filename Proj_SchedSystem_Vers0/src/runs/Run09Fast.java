@@ -28,16 +28,16 @@ import student.Student;
 public class Run09Fast{
 	public static void main(String[] args) {
 		final HashMap<Integer,String> classList = Run09Generator.generateClassList(10);		 					//10 courses
-		final ArrayList<Student> students = Run09Generator.generateStudents(16, classList);						//6 students
+		final ArrayList<Student> students = Run09Generator.generateStudents(6, classList);						//6 students
 		
 		CandidateFactory<Solution> candidateFactory = new CandidateFactory<Solution>() {			
 			@Override
 			public Solution generateRandomCandidate(Random rng) {
 				Solution solution = new Solution();
 				
-				ArrayList<CourseBlock> blocks = Run09Generator.generateBlocksBasedClassList(classList);
+				HashMap<String, CourseBlock> blocks = Run09Generator.generateBlocksBasedClassList(classList);
 						
-				for (CourseBlock block: blocks){
+				for (CourseBlock block: blocks.values()){
 					block.setCourseTime(Run09Generator.generateRandomTime(rng));
 				}
 				
@@ -100,7 +100,7 @@ public class Run09Fast{
 				for (Solution solution: selectedCandidates){
 					Solution copy = solution.copy();
 					
-					for (CourseBlock block: copy.getBlocks()){
+					for (CourseBlock block: copy.getBlocks().values()){
 						if (rng.nextDouble() < 0.1){
 							block.setCourseTime(Run07Generator.generateRandomTime(rng));
 						}
@@ -124,21 +124,23 @@ public class Run09Fast{
 					Solution parent1 = copies.get(i);
 					Solution parent2 = copies.get(i+1);
 					
-					int point = rng.nextInt(parent1.getBlocks().size());
+					int point = rng.nextInt(parent1.getBlocks().values().size());
 					
 					Solution offspring1 = new Solution();
-					ArrayList<CourseBlock> blocks1 = new ArrayList<>();
+					HashMap<String, CourseBlock> blocks1 = new HashMap<>();
 					
 					Solution offspring2 = new Solution();
-					ArrayList<CourseBlock> blocks2 = new ArrayList<>();
+					HashMap<String, CourseBlock> blocks2 = new HashMap<>();
 					
-					for (int j=0; j<parent1.getBlocks().size(); j++){
+					for (int j=0; j<Math.min(parent1.getBlocks().values().size(), parent2.getBlocks().values().size()); j++){
+						CourseBlock courseBlock = new ArrayList<CourseBlock>(parent2.getBlocks().values()).get(j);
+						CourseBlock courseBlock2 = new ArrayList<CourseBlock>(parent1.getBlocks().values()).get(j);
 						if (j<point){
-							blocks1.add(parent2.getBlocks().get(j));
-							blocks2.add(parent1.getBlocks().get(j));
+							blocks1.put(courseBlock.getCourseName(), courseBlock);
+							blocks2.put(courseBlock2.getCourseName(), courseBlock2);
 						}else{
-							blocks1.add(parent1.getBlocks().get(j));
-							blocks2.add(parent2.getBlocks().get(j));
+							blocks1.put(courseBlock2.getCourseName(), courseBlock2);
+							blocks2.put(courseBlock.getCourseName(), courseBlock);
 						}
 					}
 					
@@ -168,7 +170,7 @@ public class Run09Fast{
 					Solution copy = solution.copy();
 
 					if (rng.nextDouble() < 0.5){
-						for (CourseBlock block: copy.getBlocks()){
+						for (CourseBlock block: copy.getBlocks().values()){
 								block.setCourseTime(Run07Generator.generateRandomTime(rng));
 						}
 					}
@@ -230,7 +232,7 @@ public class Run09Fast{
 		});
 		
 		long start = System.currentTimeMillis();
-		ee.evolve(200, 5, new TargetFitness(0, false));
+		ee.evolve(40, 10, new TargetFitness(0, false));
 		long end = System.currentTimeMillis();
 		System.out.println(end-start);
 	}
