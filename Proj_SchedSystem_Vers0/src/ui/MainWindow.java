@@ -97,7 +97,10 @@ public class MainWindow {
 			classList.put(i++, course);
 		}
 		
-		students = Run09Generator.generateStudents(20, classList);						
+//		students = Run09Generator.generateStudents(20, classList);						
+		
+//		DatabaseHandler.databaseSave2(students);
+		students = DatabaseHandler.databaseloadStudents();
 		
 		btnLogin.addSelectionListener(new SelectionAdapter() {
 			@Override

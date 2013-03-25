@@ -27,8 +27,8 @@ import student.Student;
 
 public class Run09Fast{
 	public static void main(String[] args) {
-		final HashMap<Integer,String> classList = Run09Generator.generateClassList(10);		 					//10 courses
-		final ArrayList<Student> students = Run09Generator.generateStudents(6, classList);						//6 students
+		final HashMap<Integer,String> classList = Run09Generator.generateClassList(100);		 					//10 courses
+		final ArrayList<Student> students = Run09Generator.generateStudents(50, classList);						//6 students
 		
 		CandidateFactory<Solution> candidateFactory = new CandidateFactory<Solution>() {			
 			@Override
@@ -232,7 +232,7 @@ public class Run09Fast{
 		});
 		
 		long start = System.currentTimeMillis();
-		ee.evolve(40, 10, new TargetFitness(0, false));
+		ee.evolve(50, 5, new TargetFitness(0, false));
 		long end = System.currentTimeMillis();
 		System.out.println(end-start);
 	}

@@ -168,6 +168,7 @@ public class DatabaseHandler {
 			ArrayList<Student> students = new ArrayList<>();
 			while (rs.next()){
 				Student temp = new Student();
+				temp.setUsername(rs.getString(1));
 				ArrayList<String> classes = new ArrayList<>();
 				int index=0;
 				for (String next: rs2Strings){
