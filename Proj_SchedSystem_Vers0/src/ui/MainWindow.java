@@ -20,6 +20,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
+import database.DatabaseHandler;
+
 public class MainWindow {
 
 	protected Shell shell;
@@ -88,8 +90,13 @@ public class MainWindow {
 		textPassword = new Text(composite, SWT.BORDER);
 		textPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		HashMap<Integer, String> classList = Run09Generator.generateClassList(100);
-		courses = new ArrayList<>(classList.values());		 					
+		HashMap<Integer, String> classList = new HashMap<>();
+		courses = DatabaseHandler.databaseloadCourses();
+		
+		int i = 0; for (String course: courses){
+			classList.put(i++, course);
+		}
+		
 		students = Run09Generator.generateStudents(20, classList);						
 		
 		btnLogin.addSelectionListener(new SelectionAdapter() {

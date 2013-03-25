@@ -11,10 +11,10 @@ import runs.Run09Generator;
 
 public class DatabaseHandler {
 	public static void main(String[] args) {
-		databaseSave(new ArrayList<>(Run09Generator.generateClassList(10).values()));
+		databaseSaveCourses(new ArrayList<>(Run09Generator.generateClassList(10).values()));
 	}
 	
-	private static void databaseSave(ArrayList<String> courses){
+	public static void databaseSaveCourses(ArrayList<String> courses){
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e1) {
@@ -47,4 +47,37 @@ public class DatabaseHandler {
 		}
 		
 	}
+	
+	public static ArrayList<String> databaseloadCourses(){
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Connection connection = null;
+		try {		
+			connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+			
+			Statement statement = connection.createStatement();
+
+			statement.setQueryTimeout(20);
+			
+			ResultSet rs = statement.executeQuery("select name from courselist");
+			
+			ArrayList<String> courses = new ArrayList<>();
+			
+			while (rs.next()){
+				courses.add(rs.getString(1));
+			}
+			
+			return courses;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return new ArrayList<>();
+	}
+	
 }
