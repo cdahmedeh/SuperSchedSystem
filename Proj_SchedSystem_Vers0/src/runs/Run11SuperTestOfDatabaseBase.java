@@ -24,5 +24,6 @@ public class Run11SuperTestOfDatabaseBase {
 		DatabaseHandler.databaseSave2(students);
 		ArrayList<Student> studentsDatabase;
 		studentsDatabase = DatabaseHandler.databaseloadStudents();
+		int j = 1;
 	}
 }

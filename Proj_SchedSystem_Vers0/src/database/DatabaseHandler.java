@@ -21,7 +21,7 @@ public class DatabaseHandler {
         databaseSave2(new ArrayList<>(Run09Generator.generateStudents(10, courses)));
     }
     
-    private static void databaseSave(ArrayList<String> courses){
+    public static void databaseSave(ArrayList<String> courses){
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e1) {
@@ -150,7 +150,6 @@ public class DatabaseHandler {
 			e1.printStackTrace();
 		}		
 		Connection connection = null;
-		
 		try {		
 			connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 			Statement statement = connection.createStatement();
@@ -159,15 +158,24 @@ public class DatabaseHandler {
 			statement2.setQueryTimeout(20);
 			ResultSet rs = statement.executeQuery("select name, prefStartTimeHour, prefStartTimeMin, prefEndTimeHour, prefEndTimeMinute from studentlist");
 			ResultSet rs2 = statement2.executeQuery("select student, class from takingclasses");
+			ArrayList<String> rs2Strings = new ArrayList<>();
+			ArrayList<String> rs2Strings2 = new ArrayList<>();
+			while(rs2.next()){
+				rs2Strings.add(rs2.getString(1));
+				rs2Strings2.add(rs2.getString(2));
+			}
+			
 			ArrayList<Student> students = new ArrayList<>();
 			while (rs.next()){
 				Student temp = new Student();
 				ArrayList<String> classes = new ArrayList<>();
-				while (rs2.next()){
-					if (rs2.getString(1).equals(rs.getString(1))){
-						classes.add(rs2.getString(2));
-						temp.addConstraint(new MustHaveCourse(rs2.getString(2)));
+				int index=0;
+				for (String next: rs2Strings){
+					if (next.equals(rs.getString(1))){
+						classes.add(rs2Strings2.get(index));
+						temp.addConstraint(new MustHaveCourse(rs2Strings2.get(index)));
 					}
+					index +=1;
 				}
 				temp.setListOfCourses(classes);
 				temp.addConstraint(new PreferedGeneralCourseTime(rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5)));
