@@ -55,7 +55,7 @@ public class DatabaseHandler {
         
     }
     
-    private static void databaseSave2(ArrayList<Student> students){
+    public static void databaseSave2(ArrayList<Student> students){
         //students = Run09Generator.generateStudents(20, classList);
         
         try {
@@ -74,8 +74,8 @@ public class DatabaseHandler {
             
             statement.executeUpdate("drop table if exists studentlist");
             statement.executeUpdate("drop table if exists takingclasses");
-            statement.executeUpdate("create table studentlist (name string,int prefStartTimeHour,int prefStartTimeMin,int prefEndTimeHour,int prefEndTimeMinute)");
-            statement.executeUpdate("create table takingclasses (student string,class string)");
+            statement.executeUpdate("create table studentlist (name string, prefStartTimeHour int, prefStartTimeMin int, prefEndTimeHour int, prefEndTimeMinute int)");
+            statement.executeUpdate("create table takingclasses (student string, class string)");
             
             for (Student student: students){
                 PreferedGeneralCourseTime cons = null;
@@ -102,7 +102,7 @@ public class DatabaseHandler {
             ResultSet rs = statement.executeQuery("select * from studentlist");
             
             while (rs.next()){
-                System.out.println(rs.getString(1));//this is not meant for students
+                System.out.println(rs.getString(1)+" added!");//this is not meant for students
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +139,44 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 	
+		return new ArrayList<>();
+	}
+	
+	public static ArrayList<Student> databaseloadStudents(){
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+		Connection connection = null;
+		
+		try {		
+			connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(20);
+			Statement statement2 = connection.createStatement();
+			statement2.setQueryTimeout(20);
+			ResultSet rs = statement.executeQuery("select name, prefStartTimeHour, prefStartTimeMin, prefEndTimeHour, prefEndTimeMinute from studentlist");
+			ResultSet rs2 = statement2.executeQuery("select student, class from takingclasses");
+			ArrayList<Student> students = new ArrayList<>();
+			while (rs.next()){
+				Student temp = new Student();
+				ArrayList<String> classes = new ArrayList<>();
+				while (rs2.next()){
+					if (rs2.getString(1).equals(rs.getString(1))){
+						classes.add(rs2.getString(2));
+						temp.addConstraint(new MustHaveCourse(rs2.getString(2)));
+					}
+				}
+				temp.setListOfCourses(classes);
+				temp.addConstraint(new PreferedGeneralCourseTime(rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5)));
+				students.add(temp);
+			}
+			return students;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return new ArrayList<>();
 	}
 }

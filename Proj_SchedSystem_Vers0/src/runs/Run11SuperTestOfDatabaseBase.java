@@ -21,7 +21,8 @@ public class Run11SuperTestOfDatabaseBase {
 		
 		ArrayList<Student> students = Run09Generator.generateStudents(20, classList);
 		
-//		DatabaseHandler.databaseSaveCourses(students);
-//		students = DatabaseHandler.databaseloadCourses();
+		DatabaseHandler.databaseSave2(students);
+		ArrayList<Student> studentsDatabase;
+		studentsDatabase = DatabaseHandler.databaseloadStudents();
 	}
 }
