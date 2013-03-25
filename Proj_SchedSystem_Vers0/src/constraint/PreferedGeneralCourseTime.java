@@ -41,4 +41,20 @@ public class PreferedGeneralCourseTime implements Constraint {
 		PreferedGeneralCourseTime cloned = new PreferedGeneralCourseTime(prefBegin.getHourOfDay(),prefBegin.getMinuteOfHour(),prefEnd.getHourOfDay(),prefEnd.getMinuteOfHour());
 		return cloned;
 	}
+
+	public SuperFastTime getPrefBegin() {
+		return prefBegin;
+	}
+
+	public void setPrefBegin(SuperFastTime prefBegin) {
+		this.prefBegin = prefBegin;
+	}
+
+	public SuperFastTime getPrefEnd() {
+		return prefEnd;
+	}
+
+	public void setPrefEnd(SuperFastTime prefEnd) {
+		this.prefEnd = prefEnd;
+	}
 }
